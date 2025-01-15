@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: DataMigration
+
+  datasource:
+    old:
+      jdbcUrl: jdbc:postgresql://localhost:5432/Apartments
+      username: ${OLD_USER}
+      password: ${OLD_PASS}
+      driver-class-name: org.postgresql.Driver
+    new:
+      jdbcUrl: jdbc:postgresql://localhost:5433/Apartment
+      username: ${NEW_USER}
+      password: ${NEW_PASS}
+      driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-new.yaml
+
+scheduling:
+  migration: "0 0 8 * * *"

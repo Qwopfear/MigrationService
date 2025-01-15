@@ -1,0 +1,86 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: user
+      changes:
+        - createTable:
+            tableName: apartment
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: additional_price
+                  type: integer
+              - column:
+                  name: area
+                  type: double precision
+              - column:
+                  name: created_at
+                  type: date
+              - column:
+                  name: data_collected
+                  type: boolean
+              - column:
+                  name: for_smokers
+                  type: boolean
+              - column:
+                  name: for_students
+                  type: boolean
+              - column:
+                  name: owner_name
+                  type: varchar(255)
+              - column:
+                  name: price
+                  type: integer
+              - column:
+                  name: room_number
+                  type: varchar(255)
+              - column:
+                  name: source
+                  type: varchar(255)
+                  constraints:
+                    checkConstraint: "source IN ('OLX', 'OTODOM')"
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: total_price
+                  type: integer
+              - column:
+                  name: type
+                  type: varchar(255)
+                  constraints:
+                    checkConstraint: "type IN ('FOR_RENT', 'FOR_SELL')"
+              - column:
+                  name: phone_number
+                  type: varchar(255)
+
+  - changeSet:
+      id: 2
+      author: user
+      changes:
+        - addUniqueConstraint:
+            columnNames: id
+            tableName: apartment
+
+  - changeSet:
+      id: 3
+      author: user
+      changes:
+        - createIndex:
+            tableName: apartment
+            indexName: for_rent_index
+            columns:
+              - column:
+                  name: type
+
+  - changeSet:
+      id: 4
+      author: user
+      changes:
+        - tagDatabase:
+            tag: initial
